@@ -16,12 +16,12 @@ react, typescript, redux, styled-components 등을 이용해 빙고 게임을 �
 ## redux store data structure
 
 BingoGameState
-|___isPlaying:boolean
-|___currentPlayer:number
-|___currentRound:number
-|___Players:BingoPlayerAreaInfo[]
-        |___playerNumber: number;
-	    |___isCurrentPlayer: boolean;
-	    |___cells: CellInfo[][];
-	    |___completedLine: CellInfo[][];
+* isPlaying:boolean
+* currentPlayer:number
+* currentRound:number
+* Players:BingoPlayerAreaInfo[]
+	* playerNumber: number;
+	    * isCurrentPlayer: boolean;
+	    * cells: CellInfo[][];
+	    * completedLine: CellInfo[][];
 
