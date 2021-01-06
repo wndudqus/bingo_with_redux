@@ -1,6 +1,6 @@
 import { BingoPlayerAreaInfo } from "../components/BingoPlayerArea";
 import { CellInfo } from "../components/Cell";
-import { calcNextPlayer, checkCellInCells, createEmptyBingoGame, getBingoLines } from "../lib/bingoUtils";
+import { calcNextPlayer, checkCellInCells, createEmptyBingoGame, getBingoLines, intersectionCells } from "../lib/bingoUtils";
 
 //action types
 const TOGGLE_GAME = 'bingoGame/TOGGLE_GAME' as const;
@@ -55,12 +55,21 @@ const bingoGameReducer = (state: BingoGameState = initialBingoGameState, action:
                 currentRound: state.currentRound + 1,
                 currentPlayer: calcNextPlayer(state.currentRound, state.players.length),
                 players: state.players.map((player) => {
+
                     const checkedCells: CellInfo[][] = checkCellInCells(player.cells, action.selectedCell);
+                    const totalBingoLines = getBingoLines(player.cells.length, checkedCells);
+                    const newCompletedLines = intersectionCells(player.completedLine, totalBingoLines);
+
                     return {
                         ...player,
                         isCurrentPlayer: calcNextPlayer(state.currentRound, state.players.length) === player.playerNumber,
                         cells: checkedCells,
-                        completedLine: getBingoLines(player.cells.length, checkedCells)
+                        completedLine: [
+                            ...player.completedLine,
+                            ...newCompletedLines
+                        ]
+
+
                     }
 
                 })

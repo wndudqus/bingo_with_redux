@@ -48,6 +48,18 @@ export const createEmptyPlayer = (playerNumber: number, boardSize: number = 5, i
     return player;
 }
 
+//newLines-prevLines  B cells에서 A cells의 특정 ROW와 같은 값이 있는 ROW를  제외시키는 함수
+export const intersectionCells = (prevLines: CellInfo[][], newLines: CellInfo[][]): CellInfo[][] => {
+    return newLines.filter((newLine) => {
+        return !prevLines.some((prevLine) => isSameValuedCellArray(prevLine, newLine));
+    });
+}
+
+//두 배열을 문자열화 시켜 비교
+export const isSameValuedCellArray = (cellA: CellInfo[], cellB: CellInfo[]): boolean => {
+    return JSON.stringify(cellA) === JSON.stringify(cellB);
+}
+
 //start-end 범위의 값을 1차원 배열에 랜덤한 순서로 넣어준다.
 export const createRandValues = (start: number, end: number): number[] => {
     const values: number[] = [];
