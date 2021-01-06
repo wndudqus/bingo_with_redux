@@ -10,13 +10,15 @@ const CompletedLinesTableSection = styled.section`
 	.completed-lines {
 		display: flex;
 		flex-flow: wrap column;
+		margin: 1rem;
 		.completed-lines-row {
 			display: flex;
 			flex-flow: row;
-			border-bottom-width: 1px;
+			justify-content: center;
+			border: 1px;
 			border-style: solid;
 			.cell {
-				margin: 0.1rem;
+				margin: 0.4rem;
 			}
 		}
 	}
@@ -32,7 +34,7 @@ export default function CompletedLineTable({
 	return (
 		<CompletedLinesTableSection>
 			<div>
-				<h1>Completed line</h1>
+				<h1>Completed lines</h1>
 			</div>
 			<div className="completed-lines">
 				{completedLines.map((line, index) => {
