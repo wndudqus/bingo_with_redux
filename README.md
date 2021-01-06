@@ -4,6 +4,8 @@
 
 react, typescript, redux, styled-components 등을 이용해 빙고 게임을 만들었습니다. 
 
+* [ -- 빙고게임 링크 --](https://wndudqus.github.io/bingo_with_redux/)
+
 ## 사용 스택
  * Typescript
  * React
