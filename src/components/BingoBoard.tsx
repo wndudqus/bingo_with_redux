@@ -17,23 +17,27 @@ const BingoBoardSection = styled.section`
 		justify-content: center;
 	}
 `;
+
+//props type
 type BingoBoardProps = {
+	isPlaying: boolean;
 	isActive: boolean;
 	cells: CellInfo[][];
 	selectCell: (selectedCell: CellInfo) => void;
 };
 
 export default function BingoBoard({
+	isPlaying,
 	isActive,
 	cells,
 	selectCell,
 }: BingoBoardProps) {
 	const onClickBoard = useCallback(
 		(e: React.MouseEvent<HTMLElement, MouseEvent>) => {
-			if (isActive) return;
+			if (isActive || !isPlaying) return;
 			else alert('올바른 차례가 아닙니다.');
 		},
-		[isActive],
+		[isActive, isPlaying],
 	);
 
 	return (

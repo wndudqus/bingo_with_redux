@@ -2,7 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import BingoBoard from './BingoBoard';
 import { CellInfo } from './Cell';
-import CompletedLineTable from './CompletedLineTable';
+import CompletedLinesList from './CompletedLinesList';
+
 const BingoPlayerAreaSection = styled.section`
 	height: 45%;
 	display: flex;
@@ -31,7 +32,9 @@ export type BingoPlayerAreaInfo = {
 	completedLine: CellInfo[][];
 };
 
+//props type
 export type BingoPlayerAreaProps = {
+	isPlaying: boolean;
 	playerNumber: number;
 	isCurrentPlayer: boolean;
 	cells: CellInfo[][];
@@ -39,7 +42,9 @@ export type BingoPlayerAreaProps = {
 	selectCell: (selectedCell: CellInfo) => void;
 };
 
+// 한 사용자가 이용하는 영역을 랜더링 하는 컴포넌트
 export default function BingoPlayerArea({
+	isPlaying,
 	playerNumber,
 	isCurrentPlayer,
 	cells,
@@ -53,11 +58,12 @@ export default function BingoPlayerArea({
 			<h1 className="player-name">player : {playerNumber}</h1>
 			<div className="game-area">
 				<BingoBoard
+					isPlaying={isPlaying}
 					isActive={isCurrentPlayer}
 					cells={cells}
 					selectCell={selectCell}
 				/>
-				<CompletedLineTable completedLines={completedLine} />
+				<CompletedLinesList completedLines={completedLine} />
 			</div>
 		</BingoPlayerAreaSection>
 	);

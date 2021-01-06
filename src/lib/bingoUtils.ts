@@ -2,6 +2,7 @@ import { BingoPlayerAreaInfo } from "../components/BingoPlayerArea";
 import { CellInfo } from "../components/Cell";
 import { BingoGameState } from "../modules/bingoGame";
 
+//initValues 값에 따라 완전히 빈 game을 만들거나 값이 초기화되어있는 시작된 게임을 만든다.
 export const createEmptyBingoGame = (NumberOfPlayers: number = 2, boardSize: number = 5, initValues: boolean = false): BingoGameState => {
 
     let bingoPlayerAreaInfo: BingoPlayerAreaInfo[] = [];
@@ -11,7 +12,7 @@ export const createEmptyBingoGame = (NumberOfPlayers: number = 2, boardSize: num
     }
 
     const bingoGameSate: BingoGameState = {
-        isPlaying: false,
+        isPlaying: initValues,
         currentPlayer: 1,
         currentRound: 1,
         players: bingoPlayerAreaInfo
@@ -19,6 +20,7 @@ export const createEmptyBingoGame = (NumberOfPlayers: number = 2, boardSize: num
     return bingoGameSate;
 }
 
+//플레이어 정보를 초기화 한다. initValues에 따라 cell들에 값을 할당할지 결정한다. 
 export const createEmptyPlayer = (playerNumber: number, boardSize: number = 5, initValues: boolean = false): BingoPlayerAreaInfo => {
 
     const initCells: CellInfo[][] = [];
@@ -38,7 +40,7 @@ export const createEmptyPlayer = (playerNumber: number, boardSize: number = 5, i
 
     const player: BingoPlayerAreaInfo = {
         playerNumber,
-        isCurrentPlayer: true,
+        isCurrentPlayer: (playerNumber === 1) ? true : false,
         cells: initCells,
         completedLine: new Array<CellInfo[]>(0)
     }
@@ -46,6 +48,7 @@ export const createEmptyPlayer = (playerNumber: number, boardSize: number = 5, i
     return player;
 }
 
+//start-end 범위의 값을 1차원 배열에 랜덤한 순서로 넣어준다.
 export const createRandValues = (start: number, end: number): number[] => {
     const values: number[] = [];
 
@@ -56,7 +59,8 @@ export const createRandValues = (start: number, end: number): number[] => {
     return shuffled;
 }
 
-export const shuffle = (values: number[]) => {
+//입력된 배열내의 숫자들을 랜덤한 순서로 섞어준다.
+export const shuffle = (values: number[]): number[] => {
     return values
         .map(value => ([Math.random(), value]))
         .sort((a, b) => a[0] - b[0])
@@ -122,6 +126,7 @@ export const checkCellInCells = (cells: CellInfo[][], targetCell: CellInfo): Cel
     });
 }
 
+//action이 호출 된 후 승자가 나왔는지 확인하는 listener함수
 export const checkWinner = (players: BingoPlayerAreaInfo[], onWin: () => void) => {
     let winner: number[] = [];
     players.forEach((player: BingoPlayerAreaInfo) => {
@@ -132,20 +137,16 @@ export const checkWinner = (players: BingoPlayerAreaInfo[], onWin: () => void) =
 
     //해당 로직만 async로 넘겨 다른 로직은 실행될 수 있도록 
     const notifyWinner = async () => {
-        let confirm: boolean = false;
         if (winner.length > 1) {
-            confirm = await window.confirm("무승부!\n\n 확인을 누를 경우 게임이 초기화 됩니다.");
+            await window.confirm("무승부!\n\n 본 팝업이 꺼지면 게임이 초기화 됩니다.");
         }
         else if (winner.length) {
-            confirm = await window.confirm(`Player - ${winner[0]}승리!\n\n 확인을 누를 경우 게임이 초기화 됩니다.`);
+            await window.confirm(`Player - ${winner[0]}승리!\n\n 본 팝업이 꺼지면 게임이 초기화 됩니다.`);
         }
         else {
-            return
+            return;
         }
-
-        if (confirm) {
-            onWin()
-        }
+        onWin()
     }
 
     notifyWinner();

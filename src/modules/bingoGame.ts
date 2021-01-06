@@ -2,21 +2,23 @@ import { BingoPlayerAreaInfo } from "../components/BingoPlayerArea";
 import { CellInfo } from "../components/Cell";
 import { calcNextPlayer, checkCellInCells, createEmptyBingoGame, getBingoLines } from "../lib/bingoUtils";
 
+//action types
 const TOGGLE_GAME = 'bingoGame/TOGGLE_GAME' as const;
 const SELECT_CELL = 'bingoGame/SELECT_CELL' as const;
 const RESET_GAME = 'bingoGame/RESET_GAME' as const;
 
-
+//actions
 export const toggleGame = () => ({ type: TOGGLE_GAME });
 export const selectCell = (selectedCell: CellInfo) => ({ type: SELECT_CELL, selectedCell });
 export const resetGame = () => ({ type: RESET_GAME });
 
+//빙고게임의 state를 변화시키는 액션 타입
 type BingoGameAction =
     | ReturnType<typeof toggleGame>
     | ReturnType<typeof selectCell>
     | ReturnType<typeof resetGame>
 
-
+//빙고게임의 global state
 export type BingoGameState = {
     isPlaying: boolean;
     currentPlayer: number;
@@ -24,13 +26,15 @@ export type BingoGameState = {
     players: BingoPlayerAreaInfo[];
 }
 
+//initialState
 const initialBingoGameState: BingoGameState = createEmptyBingoGame(2, 5);
 
-const bingoGameReducer = (state: BingoGameState = initialBingoGameState, action: BingoGameAction) => {
+const bingoGameReducer = (state: BingoGameState = initialBingoGameState, action: BingoGameAction): BingoGameState => {
 
-    let newState: BingoGameState = initialBingoGameState;
+    let newState: BingoGameState;
 
     switch (action.type) {
+
         case TOGGLE_GAME:
 
             newState = {
@@ -39,6 +43,7 @@ const bingoGameReducer = (state: BingoGameState = initialBingoGameState, action:
                 isPlaying: true,
             };
             return newState;
+
         case SELECT_CELL:
 
             if (state.currentPlayer !== action.selectedCell.boardNumber || !state.isPlaying) {
@@ -61,9 +66,11 @@ const bingoGameReducer = (state: BingoGameState = initialBingoGameState, action:
                 })
             };
             return newState;
+
         case RESET_GAME:
             newState = createEmptyBingoGame(2, 5, false);
             return newState;
+
         default:
             return state;
     }

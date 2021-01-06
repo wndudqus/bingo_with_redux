@@ -21,18 +21,27 @@ const CellStyleButton = styled.button`
 		outline: none;
 		background-color: ${(props) => props.color || 'rgb(51, 52, 55);'};
 	}
+	&:hover {
+		color: rgb(61, 62, 65);
+		border-style: solid;
+		border-color: rgb(248, 47, 98);
+		border-width: 2px;
+	}
 `;
 
+//cell을 저장 할 때 타입.
+export type CellInfo = {
+	id: number;
+	boardNumber: number;
+	isChecked: boolean;
+};
+
+//props type
 export type CellProps = {
 	id: number;
 	boardNumber: number;
 	isChecked: boolean;
 	selectCell: (selectedCell: CellInfo) => void;
-};
-export type CellInfo = {
-	id: number;
-	boardNumber: number;
-	isChecked: boolean;
 };
 
 export default function Cell({
@@ -41,11 +50,11 @@ export default function Cell({
 	isChecked,
 	selectCell,
 }: CellProps) {
+	const onClick = () => {
+		return isChecked ? () => {} : selectCell({ id, boardNumber, isChecked });
+	};
 	return (
-		<CellStyleButton
-			color={isChecked ? '#F82F62' : 'white'}
-			onClick={() => selectCell({ id, boardNumber, isChecked })}
-		>
+		<CellStyleButton color={isChecked ? '#F82F62' : 'white'} onClick={onClick}>
 			{id ? id : ''}
 		</CellStyleButton>
 	);

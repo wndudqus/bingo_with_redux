@@ -14,6 +14,7 @@ const BingoGameSection = styled.section`
 	}
 `;
 
+//props type
 export type BingoGameProps = {
 	isPlaying: boolean;
 	currentPlayer: number;
@@ -38,6 +39,7 @@ export default function BingoGame({
 						return (
 							<BingoPlayerArea
 								key={`player_area_${playerNumber}`}
+								isPlaying={isPlaying}
 								playerNumber={playerNumber}
 								isCurrentPlayer={isCurrentPlayer}
 								cells={cells}

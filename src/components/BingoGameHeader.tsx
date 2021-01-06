@@ -12,10 +12,12 @@ const StyledHeader = styled.header`
 	}
 `;
 
+//props type
 type BingoGameHeaderProps = {
 	isPlaying: boolean;
 	onClick: () => void;
 };
+
 export default function BingoGameHeader({
 	isPlaying,
 	onClick,

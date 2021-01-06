@@ -7,7 +7,6 @@ export type GlobalStates = {
     bingoGameReducer: BingoGameState;
 }
 
-
 const rootReducer = combineReducers({
     bingoGameReducer
 });

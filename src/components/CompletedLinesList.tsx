@@ -2,11 +2,14 @@ import React from 'react';
 import styled from 'styled-components';
 import { CellInfo } from './Cell';
 
-const CompletedLinesTableSection = styled.section`
+const CompletedLinesListSection = styled.section`
 	display: flex;
 	flex-flow: wrap column;
 	justify-content: center;
 	align-items: center;
+	.completed-lines-header {
+		font-size: 1.1rem;
+	}
 	.completed-lines {
 		display: flex;
 		flex-flow: wrap column;
@@ -24,16 +27,18 @@ const CompletedLinesTableSection = styled.section`
 	}
 `;
 
-type CompletedLineTableProps = {
+//props type
+type CompletedLinesListProps = {
 	completedLines: CellInfo[][];
 };
 
-export default function CompletedLineTable({
+//완성된 줄을 리스트로 보여주는 컴포넌트
+export default function CompletedLinesList({
 	completedLines,
-}: CompletedLineTableProps) {
+}: CompletedLinesListProps) {
 	return (
-		<CompletedLinesTableSection>
-			<div>
+		<CompletedLinesListSection>
+			<div className="completed-lines-header">
 				<h1>Completed lines</h1>
 			</div>
 			<div className="completed-lines">
@@ -55,6 +60,6 @@ export default function CompletedLineTable({
 					);
 				})}
 			</div>
-		</CompletedLinesTableSection>
+		</CompletedLinesListSection>
 	);
 }
