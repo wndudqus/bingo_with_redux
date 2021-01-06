@@ -12,6 +12,7 @@ react, typescript, redux, styled-components 등을 이용해 빙고 게임을 �
  * redux
  * react-redux
  * redux-devtools-extension
+ * gh-pages
 
 ## redux store data structure
 
