@@ -14,7 +14,6 @@ export const createEmptyBingoGame = (NumberOfPlayers: number = 2, boardSize: num
         isPlaying: false,
         currentPlayer: 1,
         currentRound: 1,
-        winner: -1,
         players: bingoPlayerAreaInfo
     }
     return bingoGameSate;

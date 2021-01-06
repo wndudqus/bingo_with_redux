@@ -21,7 +21,6 @@ export type BingoGameState = {
     isPlaying: boolean;
     currentPlayer: number;
     currentRound: number;
-    winner: number;
     players: BingoPlayerAreaInfo[];
 }
 
