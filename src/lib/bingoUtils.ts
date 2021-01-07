@@ -126,7 +126,7 @@ export const getBingoLines = (boardSize: number, cells: CellInfo[][]): CellInfo[
     return totalBingoLines;
 };
 
-//board 중 해당하는 cell을 교체 한 후 return
+//board 중 해당하는 cell을 교체 한 cell array를 새로 생성해 return
 export const checkCellInCells = (cells: CellInfo[][], targetCell: CellInfo): CellInfo[][] => {
     return cells.map((row) => {
         return row.map((cell) => {
@@ -147,7 +147,7 @@ export const checkWinner = (players: BingoPlayerAreaInfo[], onWin: () => void) =
         }
     });
 
-    //해당 로직만 async로 넘겨 다른 로직은 실행될 수 있도록 
+    //내부 함수로 사용. 
     const notifyWinner = async () => {
         if (winner.length > 1) {
             await window.confirm("무승부!\n\n 본 팝업이 꺼지면 게임이 초기화 됩니다.");
@@ -161,7 +161,8 @@ export const checkWinner = (players: BingoPlayerAreaInfo[], onWin: () => void) =
         onWin()
     }
 
-    notifyWinner();
+    //setTimeout으로 감싸서 함수의 우선순위를 낮춰준다.
+    setTimeout(notifyWinner, 0);
 
 
 }
