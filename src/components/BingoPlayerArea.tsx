@@ -39,7 +39,6 @@ export type BingoPlayerAreaProps = {
 	isCurrentPlayer: boolean;
 	cells: CellInfo[][];
 	completedLine: CellInfo[][];
-	selectCell: (selectedCell: CellInfo) => void;
 };
 
 // 한 사용자가 이용하는 영역을 랜더링 하는 컴포넌트
@@ -49,7 +48,6 @@ export default function BingoPlayerArea({
 	isCurrentPlayer,
 	cells,
 	completedLine,
-	selectCell,
 }: BingoPlayerAreaProps) {
 	return (
 		<BingoPlayerAreaSection
@@ -61,7 +59,6 @@ export default function BingoPlayerArea({
 					isPlaying={isPlaying}
 					isActive={isCurrentPlayer}
 					cells={cells}
-					selectCell={selectCell}
 				/>
 				<CompletedLinesList completedLines={completedLine} />
 			</div>

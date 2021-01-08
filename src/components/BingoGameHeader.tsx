@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useCallback } from 'react';
+import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
+import { toggleGame } from '../modules/bingoGame';
 import Button from './Button';
 const StyledHeader = styled.header`
 	display: flex;
@@ -15,13 +17,15 @@ const StyledHeader = styled.header`
 //props type
 type BingoGameHeaderProps = {
 	isPlaying: boolean;
-	onClick: () => void;
 };
 
-export default function BingoGameHeader({
-	isPlaying,
-	onClick,
-}: BingoGameHeaderProps) {
+export default function BingoGameHeader({ isPlaying }: BingoGameHeaderProps) {
+	const dispatch = useDispatch();
+
+	const onClick = useCallback(() => {
+		dispatch(toggleGame());
+	}, []);
+
 	return (
 		<StyledHeader>
 			<h1 className="header_title">WATCHA BINGO</h1>
