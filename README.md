@@ -27,7 +27,7 @@ if 동시에 5개이상의 빙고를 완료하면 무승부로 처리
  * gh-pages
 
 ## redux store data structure
-
+```ts
 BingoGameState
 BINGO
 |
@@ -45,3 +45,4 @@ Players:BingoPlayerAreaInfo[]// 한 플레이어가 소유한 게임의 화면 �
     |____boardNumber:number; //해당 셀이 속하는 보드 번호
     |____isChecked:boolean; //해당 셀이 체크가 되었는지
 |____completedLine: CellInfo[][]; //본 사용자가 완성한 줄 목록
+```
