@@ -23,14 +23,12 @@ type BingoBoardProps = {
 	isPlaying: boolean;
 	isActive: boolean;
 	cells: CellInfo[][];
-	selectCell: (selectedCell: CellInfo) => void;
 };
 
 export default function BingoBoard({
 	isPlaying,
 	isActive,
 	cells,
-	selectCell,
 }: BingoBoardProps) {
 	const onClickBoard = useCallback(
 		(e: React.MouseEvent<HTMLElement, MouseEvent>) => {
@@ -55,7 +53,6 @@ export default function BingoBoard({
 									id={id}
 									boardNumber={boardNumber}
 									isChecked={isChecked}
-									selectCell={selectCell}
 								/>
 							))}
 						</div>

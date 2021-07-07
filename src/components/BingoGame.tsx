@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 import BingoGameHeader from './BingoGameHeader';
 import BingoPlayerArea, { BingoPlayerAreaInfo } from './BingoPlayerArea';
-import { CellInfo } from './Cell';
 
 const BingoGameSection = styled.section`
 	height: 100%;
@@ -19,20 +18,13 @@ export type BingoGameProps = {
 	isPlaying: boolean;
 	currentPlayer: number;
 	winner: number;
-	toggleGame: () => void;
-	selectCell: (selectedCell: CellInfo) => void;
 	players: BingoPlayerAreaInfo[];
 };
 
-export default function BingoGame({
-	isPlaying,
-	toggleGame,
-	players,
-	selectCell,
-}: BingoGameProps) {
+export default function BingoGame({ isPlaying, players }: BingoGameProps) {
 	return (
 		<BingoGameSection>
-			<BingoGameHeader isPlaying={isPlaying} onClick={toggleGame} />
+			<BingoGameHeader isPlaying={isPlaying} />
 			<div className="bingo-game-body">
 				{players.map(
 					({ playerNumber, isCurrentPlayer, cells, completedLine }) => {
@@ -44,7 +36,6 @@ export default function BingoGame({
 								isCurrentPlayer={isCurrentPlayer}
 								cells={cells}
 								completedLine={completedLine}
-								selectCell={selectCell}
 							/>
 						);
 					},

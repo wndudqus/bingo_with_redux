@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useCallback } from 'react';
+import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
+import { selectCell } from '../modules/bingoGame';
 
 const CellStyleButton = styled.button`
 	width: 3vw;
@@ -41,18 +43,15 @@ export type CellProps = {
 	id: number;
 	boardNumber: number;
 	isChecked: boolean;
-	selectCell: (selectedCell: CellInfo) => void;
 };
 
-export default function Cell({
-	id,
-	boardNumber,
-	isChecked,
-	selectCell,
-}: CellProps) {
-	const onClick = () => {
-		return isChecked ? () => {} : selectCell({ id, boardNumber, isChecked });
-	};
+export default function Cell({ id, boardNumber, isChecked }: CellProps) {
+	const dispatch = useDispatch();
+
+	const onClick = useCallback(() => {
+		if (!isChecked) dispatch(selectCell({ id, boardNumber, isChecked }));
+	}, [isChecked]);
+
 	return (
 		<CellStyleButton color={isChecked ? '#F82F62' : 'white'} onClick={onClick}>
 			{id ? id : ''}
